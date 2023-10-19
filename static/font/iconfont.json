@@ -1,0 +1,37 @@
+{
+  "id": "4284461",
+  "name": "五洲",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "12004539",
+      "name": "Email",
+      "font_class": "Email",
+      "unicode": "ea9c",
+      "unicode_decimal": 60060
+    },
+    {
+      "icon_id": "924669",
+      "name": "地址",
+      "font_class": "dizhi",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "1416935",
+      "name": "phone",
+      "font_class": "phone",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "7567777",
+      "name": "24gl-telephone2",
+      "font_class": "24gl-telephone2",
+      "unicode": "e953",
+      "unicode_decimal": 59731
+    }
+  ]
+}

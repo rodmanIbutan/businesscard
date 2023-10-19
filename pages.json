@@ -1,0 +1,118 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "五洲工程顾问集团"
+			}
+		}
+	    ,{
+            "path" : "pages/information/information",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的账户",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/create/create",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "创建账户",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/login/login",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "登录",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/business/business",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "名片",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/manager/manager",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "名片管理",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/updatebusi/updatebusi",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "修改名片",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/acc_manager/acc_manager",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "用户管理",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/acc_manager/updateUser",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "修改用户",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/acc_manager/createUser",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "创建用户",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "ecard",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+		"enablePullDownRefresh":true
+	},
+	"tabBar" : {
+	    "backgroundColor" : "#f1f1f1",
+	    "selectedColor" : "#000000",
+	    "borderStyle" : "white",
+	    "list" : [
+	        {
+	            "pagePath" : "pages/index/index",
+	            "iconPath" : "static/tabbar/index.png",
+	            "selectedIconPath" : "static/tabbar/index-cur.png",
+	            "text" : "首页"
+	        },
+	        {
+	            "pagePath" : "pages/information/information",
+	            "iconPath" : "static/tabbar/information.png",
+	            "selectedIconPath" : "static/tabbar/information-cur.png",
+	            "text" : "我的"
+	        }
+	    ]
+	},
+	"uniIdRouter": {}
+}
