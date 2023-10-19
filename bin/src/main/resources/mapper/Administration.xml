@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuzhou.businesscard.mapper.AdministrationMapper">
+    <select id="selectUserList" resultType="com.wuzhou.businesscard.entity.User">
+        select * from user where isdeleted=0 and id!=1
+    </select>
+    <select id="selectUserById" parameterType="int" resultType="com.wuzhou.businesscard.entity.User">
+        select * from user where id=#{id} and isdeleted=0
+    </select>
+    <insert id="createUser" parameterType="com.wuzhou.businesscard.entity.User">
+        insert into user (username, password, phone, gender, avatar,isdeleted)
+        VALUES (#{username}, #{password}, #{phone}, #{gender},#{avatar},0)
+    </insert>
+    <update id="updateUser" parameterType="com.wuzhou.businesscard.entity.User">
+        update user set username=#{username},password=#{password},phone=#{phone},gender=#{gender},avatar=#{avatar} where id=#{id} and isdeleted=0 and id!=1
+    </update>
+    <update id="deleteUser" parameterType="int">
+        update user set isdeleted=1 where id=#{id} and isdeleted=0 and id!=1
+    </update>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuzhou.businesscard.mapper.CardMapper">
+    <insert id="createCard" parameterType="com.wuzhou.businesscard.entity.Card">
+        insert into card (user_id, name, title, remarks, phone, email, telephone, address, position,isdeleted,company)
+        VALUES (#{userId}, #{name}, #{title}, #{remarks}, #{phone}, #{email}, #{telephone}, #{address}, #{position},0,#{company})
+    </insert>
+    <update id="deleteCard">
+        update card set isdeleted=1 where id=#{id} and user_id=#{userid}
+    </update>
+    <update id="updateCard" parameterType="com.wuzhou.businesscard.entity.Card">
+        update card set name=#{name},title=#{title},remarks=#{remarks},phone=#{phone},email=#{email},telephone=#{telephone},address=#{address},position=#{position},company=#{company} where id=#{id} and user_id=#{userId}
+    </update>
+    <select id="getCardListByUserId" parameterType="int" resultType="com.wuzhou.businesscard.entity.Card">
+        select id,title,remarks,phone,name,company from card where user_id=#{userid} and isdeleted=0
+    </select>
+    <select id="getCardById" parameterType="int" resultType="com.wuzhou.businesscard.entity.Card">
+        select * from card where id=#{id} and isdeleted=0
+    </select>
+</mapper>
