@@ -1,5 +1,6 @@
 package com.wuzhou.businesscard.controller;
 
+import com.wuzhou.businesscard.entity.Card;
 import com.wuzhou.businesscard.entity.Status;
 import com.wuzhou.businesscard.entity.User;
 import com.wuzhou.businesscard.service.AdministrationService;
@@ -42,5 +43,10 @@ public class AdministrationController {
     @ResponseBody
     public Status<Integer> deleteUser(@RequestParam Integer id, @RequestHeader("token") String token) {
         return administrationService.deleteUser(id,token);
+    }
+    @GetMapping(value = "/getCardList")
+    @ResponseBody
+    public Status<List<Card>> getCardList(@RequestHeader("token") String token){
+        return administrationService.getAllCard(token);
     }
 }

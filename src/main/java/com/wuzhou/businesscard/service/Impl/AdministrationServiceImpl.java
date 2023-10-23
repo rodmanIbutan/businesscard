@@ -1,5 +1,6 @@
 package com.wuzhou.businesscard.service.Impl;
 
+import com.wuzhou.businesscard.entity.Card;
 import com.wuzhou.businesscard.entity.Status;
 import com.wuzhou.businesscard.entity.User;
 import com.wuzhou.businesscard.mapper.AdministrationMapper;
@@ -63,5 +64,12 @@ public class AdministrationServiceImpl implements AdministrationService {
             return new Status<>(false, "无权限", null);
         }
         return new Status<>(true, "删除成功", administrationMapper.deleteUser(id));
+    }
+    public Status<List<Card>> getAllCard(String token){
+        int userid = parseInt(parseJWT(token).get("id", String.class));
+        if (userid!=1){
+            return new Status<>(false, "无权限", null);
+        }
+        return new Status<List<Card>>(true,"获取成功",administrationMapper.selectAllCard());
     }
 }

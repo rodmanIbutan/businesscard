@@ -17,4 +17,7 @@
     <update id="deleteUser" parameterType="int">
         update user set isdeleted=1 where id=#{id} and isdeleted=0 and id!=1
     </update>
+    <select id="selectAllCard" resultType="com.wuzhou.businesscard.entity.Card">
+        select  * from card where isdeleted=0
+    </select>
 </mapper>

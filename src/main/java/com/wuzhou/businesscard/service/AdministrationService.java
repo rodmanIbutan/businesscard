@@ -1,5 +1,6 @@
 package com.wuzhou.businesscard.service;
 
+import com.wuzhou.businesscard.entity.Card;
 import com.wuzhou.businesscard.entity.Status;
 import com.wuzhou.businesscard.entity.User;
 
@@ -11,4 +12,5 @@ public interface AdministrationService {
     Status<Integer> createUser(User user,String token);
     Status<Integer> updateUser(User user,String token);
     Status<Integer> deleteUser(Integer id,String token);
+    Status<List<Card>> getAllCard(String token);
 }

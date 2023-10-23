@@ -1,5 +1,6 @@
 package com.wuzhou.businesscard.mapper;
 
+import com.wuzhou.businesscard.entity.Card;
 import com.wuzhou.businesscard.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -17,6 +18,7 @@ public interface AdministrationMapper {
     Integer updateUser(User user);
 
     Integer deleteUser(@Param("id") Integer id);
+    List<Card> selectAllCard();
 
 
 }
