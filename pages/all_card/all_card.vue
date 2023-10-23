@@ -1,35 +1,30 @@
 <template>
-	<view id="app">
-		<view v-if="islogin">
-			<view class="title">我的名片</view>
+	<view class="app">
+		<view>
+			<view class="title">名片管理</view>
 			<view v-for="item in cardList" :key="item.id">
 				<uni-card :title="item.title" :extra="company[item.company]" @click="goto(item.id)">
 					<text class="uni-body">{{ item.remarks }}</text>
 				</uni-card>
 			</view>
-			<view class="add" @click="add()">
-				+
-			</view>
 		</view>
-		<view v-else>
-			<view class="loginre">
-				请先登录!
-			</view>
-			<button @click="tologin()">登录</button>
-		</view>
+		<zero-loading v-if="loading" type="pulse" mask="true"></zero-loading>
 	</view>
 </template>
 
 <script>
-	import Card from "./component/card.vue"
+	import {
+		ReactiveFlags
+	} from "vue"
 	export default {
-		components: {
-			Card
-		},
 		data() {
 			return {
 				islogin: false,
 				cardList: [],
+				message: "",
+				loading: false,
+				checkid: 0,
+				type: "success",
 				company:["五洲","千城"]
 			}
 		},
@@ -41,7 +36,7 @@
 			} else {
 				this.islogin = true
 				uni.request({
-					url: this.$http + "card/getListById",
+					url: this.$http + "administration/getCardList",
 					header: {
 						'token': uni.getStorageSync("token")
 					},
@@ -51,32 +46,15 @@
 				})
 			}
 		},
-		onPullDownRefresh() {
-			uni.request({
-				url: this.$http + "card/getListById",
-				header: {
-					'token': uni.getStorageSync("token")
-				},
-				success: (res) => {
-					this.cardList = res.data.data
-					uni.stopPullDownRefresh()
-				}
-			})
-		},
 		methods: {
-			goto(id) {
-				uni.navigateTo({
-					url: `/pages/business/business?id=${id}`
-				})
-			},
 			tologin() {
 				uni.reLaunch({
 					url: '/pages/login/login'
 				})
 			},
-			add() {
+			goto(id) {
 				uni.navigateTo({
-					url: "/pages/create/create"
+					url: `/pages/business/business?id=${id}`
 				})
 			}
 		}
@@ -84,10 +62,15 @@
 </script>
 
 <style scoped>
+	.app {
+		background-color: #eeeeee;
+		height: 100vh;
+	}
+
 	.title {
 		font-weight: 700;
 		font-size: 40rpx;
-		color: #8fc21f;
+		color: #e67e22;
 		padding: 40rpx 40rpx;
 		margin: 10rpx 20rpx;
 		border-bottom: 1px solid #f5f5f5;
@@ -106,21 +89,28 @@
 		height: 30px;
 		text-align: center;
 		line-height: 30px;
-		background-color: #8fc21f;
+		background-color: #2979ff;
 		color: #fff;
 	}
 
-	.add {
-		position: fixed;
-		bottom: 0;
-		right: 0;
-		height: 100rpx;
-		width: 100rpx;
-		border-radius: 50rpx;
-		background-color: #8fc21f;
-		color: #fff;
+	.card-actions {
+		display: flex;
+		flex-direction: row;
+	}
+
+	.card-actions .card-actions-item {
+		width: 50%;
+		height: 40rpx;
+	}
+
+	.card-actions .card-actions-item .card-actions-item-text {
+		display: block;
+		height: 100%;
+		width: 100%;
 		text-align: center;
-		line-height: 90rpx;
-		font-size: 80rpx;
+	}
+
+	.fontred {
+		color: red;
 	}
 </style>

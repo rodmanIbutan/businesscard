@@ -87,6 +87,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/all_card/all_card",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "管理所有卡片",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

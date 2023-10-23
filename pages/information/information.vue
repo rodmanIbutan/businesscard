@@ -31,6 +31,7 @@
 					管理名片
 				</view>
 				<view class="release" v-if="admin" @click="goto('acc_manager')">账号管理</view>
+				<view class="release" v-if="admin" @click="goto('all_card')">查看所有名片</view>
 				<view class="accept" @click="goto('about')">
 					关于我们
 				</view>
@@ -57,7 +58,7 @@
 				sWhere: "",
 				islogin: false,
 				user: {},
-				admin:false
+				admin: false
 			}
 		},
 		onLoad() {},
@@ -70,8 +71,8 @@
 			var userr = uni.getStorageSync("user")
 			userr.avatar = this.$http + "img/" + userr.avatar
 			this.user = userr
-			if(this.user.id==1){
-				this.admin=true
+			if (this.user.id == 1) {
+				this.admin = true
 			}
 		},
 
@@ -171,7 +172,7 @@
 		// position: absolute;
 		// top: 200rpx;
 		margin: auto;
-		margin-top: 200rpx;
+		margin-top: 100rpx;
 		height: 60rpx;
 		width: 85%;
 		padding-top: 30rpx;
