@@ -41,6 +41,7 @@
 			} else {
 				this.islogin = true
 				uni.request({
+					method:'GET',
 					url: this.$http + "card/getListById",
 					header: {
 						'token': uni.getStorageSync("token")
