@@ -46,8 +46,8 @@ public class LoginFilter implements Filter {
             error(response, String.valueOf(e));
         }
     }
-    private void error(HttpServletResponse response,String message) throws IOException{
-        Status status = new Status(false,501,message,null);
+    private void error(HttpServletResponse response, String message) throws IOException {
+        Status<String> status = new Status<>(false, 501, message, null);
         String error = JSONObject.toJSONString(status);
         response.setContentType("application/json;charset=utf-8");
         response.getWriter().write(error);
