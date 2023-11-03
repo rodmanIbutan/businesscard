@@ -48,31 +48,23 @@
 
 			</view>
 			<view class="content">
-				<view class="title_logo" :style="titlelogo">
-
+				<view class="title_logo" v-if="business.company==0" :style="titlelogo"></view>
+				<view class="title_logo" v-else :style="qianchengtitle">
 				</view>
-				<view class="text">
+				<view v-if="business.company=='0'" class="text">
 					<p>
-						五洲工程顾问集团有限公司（以下简称“五洲工程顾问集
-						团”)是一家以全过程工程咨询和工程总承包为核心产品
-						的顾问工程公司，总部位于浙江杭州。公司提供工程代
-						建（项目管理）、工程监理、工程设计等传统咨询服
-						务，并提供医疗建筑咨询、投资决策咨询、设计管理、
-						全过程投资控制、双碳（绿建）咨询、BM咨询、数字
-						咨询、安全顾问、法律顾问等新型咨询服务，是国内领
-						先的一站式综合性品牌服务商。
+						五洲工程顾问集团有限公司（以下简称“五洲工程顾问集团”)是一家以全过程工程咨询和工程总承包为核心产品的顾问工程公司，总部位于浙江杭州。公司提供工程代建（项目管理）、工程监理、工程设计等传统咨询服务，并提供医疗建筑咨询、投资决策咨询、设计管理、全过程投资控制、双碳（绿建）咨询、BM咨询、数字咨询、安全顾问、法律顾问等新型咨询服务，是国内领先的一站式综合性品牌服务商。
 					</p>
 					<p>
-						五洲工程顾问集团以政府智库、业主顾问为定位，作为
-						国家级高新技术企业，浙江省未来社区建设技术支撑单
-						位，获批成立浙江省高新技术企业研究开发中心和省级
-						博士后工作站，拥有深厚的科技研发能力、完备的技术
-						研发体系、强大的高端人才团队。发展至今，五洲工程
-						顾问集团已成为全过程工程咨询领域的佼佼者，连续多
-						年位列住建部监理行业综合排名前5、蝉联中国医院基建
-						十佳服务商，并先后荣膺全国企业党建工作先进单位、
-						杭州市清廉民营企业培育示范点单位、浙商最具投资潜
-						力企业等荣誉，综合实力浙江领先，位居全国前列。
+						五洲工程顾问集团以政府智库、业主顾问为定位，作为国家级高新技术企业，浙江省未来社区建设技术支撑单位，获批成立浙江省高新技术企业研究开发中心和省级博士后工作站，拥有深厚的科技研发能力、完备的技术研发体系、强大的高端人才团队。发展至今，五洲工程顾问集团已成为全过程工程咨询领域的佼佼者，连续多年位列住建部监理行业综合排名前5、蝉联中国医院基建十佳服务商，并先后荣膺全国企业党建工作先进单位、杭州市清廉民营企业培育示范点单位、浙商最具投资潜力企业等荣誉，综合实力浙江领先，位居全国前列。
+					</p>
+				</view>
+				<view v-if="business.company=='1'" class="text">
+					<p>
+						杭州千城建筑设计集团股份有限公司（简称千城建筑）是一家以甲级建筑设计院和综合性项目管理公司为母体，以工程总承包和全过程工程咨询为核心主业的科技创新型工程集团，是国家级高新技术企业、浙江省工程总承包试点企业。
+					</p>
+					<p>
+						得益于对行业发展趋势的前瞻预判，千城建筑经过多年发展积累，形成了有别于传统设计、施工、咨询服务企业的差异化优势，构筑了千城建筑综合实力的基础——集聚了一批具有设计管理能力的优秀建筑师队伍，培育了以设计为龙头的核心竞争力；形成了全专业、全过程的服务能力，培育了“设计—采购—施工”等各专业深度融合的管理能力；积累了工程建设相关的各类优质供应商、服务商、专家顾问资源，培育了社会各资源的高效整合能力。
 					</p>
 				</view>
 			</view>
@@ -81,7 +73,12 @@
 		<div class="bigtitle" :style="bigtitledb">
 
 		</div>
-		<div class="dbal" :style="dbal"></div>
+		<div class="wzdbal" :style="wzdbal" v-if="business.company==0"></div>
+		<div class="dbal" v-else>
+			<view v-for="(item,index) in dbal" class="dbalpng" :style="item">
+			</view>
+		</div>
+
 	</view>
 </template>
 <script>
@@ -95,8 +92,10 @@
 				bigtitle: '',
 				titlelogo: '',
 				bigtitledb: '',
-				dbal: '',
-				diss: ''
+				dbal: [],
+				diss: '',
+				qianchengtitle: '',
+				wzdbal: ''
 			}
 		},
 		methods: {
@@ -120,15 +119,15 @@
 		onShareAppMessage() {
 			return {
 				title: this.business.name + '的名片',
-				path: '/pages/business/business?id='+this.id,
-				imageUrl: this.$http + "/img/logo.png",
+				path: '/pages/business/business?id=' + this.id,
+				// imageUrl:this.$http +"img/"+this.logoList[this.business.company],
 			}
 		},
 		onShareTimeline() {
 			return {
 				title: this.business.name + '的名片',
-				path: '/pages/business/business?id='+this.id,
-				imageUrl: this.$http + "/img/logo.png",
+				path: '/pages/business/business?id=' + this.id,
+				// imageUrl: this.$http +"img/"+this.logoList[this.business.company],
 			}
 		},
 		onReady() {
@@ -144,9 +143,14 @@
 						this.titlelogo = `background-image:url(${this.$http}img/introduce_wuzhou_logo.png)`
 						this.diss = `background-image:url(${this.$http}img/introduce_wuzhou_background.png)`
 						this.bigtitledb = `background-image:url(${this.$http}img/introduce_title_db.png)`
-						this.dbal = `background-image:url(${this.$http}img/introduce_wuzhou_dbal.png)`
+						this.qianchengtitle =
+							`background-image:url(${this.$http}img/introduce_qiancheng_logo.png)`
+						this.wzdbal = `background-image:url(${this.$http}img/introduce_wuzhou_dbal.png)`
 					}
 				})
+				for (var i = 1; i <= 8; i++) {
+					this.dbal[i - 1] = `background-image:url(${this.$http}img/introduce_wuzhou_dbal${i}.png)`
+				}
 			}
 		}
 	}
@@ -297,10 +301,18 @@
 	}
 
 	.dbal {
-		height: 700rpx;
+		height: 900rpx;
+		width: 96%;
+		margin-left: 30rpx;
+	}
+
+	.dbalpng {
+		float: left;
+		height: 200rpx;
+		width: 45%;
 		background-repeat: no-repeat;
 		background-size: cover;
-		margin: 40rpx;
+		margin: 10rpx;
 	}
 
 	.background {
@@ -308,6 +320,12 @@
 		height: 400rpx;
 		background-repeat: no-repeat;
 		background-size: contain;
+	}
 
+	.wzdbal {
+		height: 700rpx;
+		background-repeat: no-repeat;
+		background-size: contain;
+		margin: 40rpx;
 	}
 </style>

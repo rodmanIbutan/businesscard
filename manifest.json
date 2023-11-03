@@ -53,7 +53,8 @@
         "appid" : "wx404b05d3c15de568",
         "setting" : {
             "urlCheck" : false,
-            "postcss" : false
+            "postcss" : false,
+            "minified" : false
         },
         "usingComponents" : true,
         "unipush" : {

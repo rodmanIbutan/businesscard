@@ -21,11 +21,7 @@
 </template>
 
 <script>
-	import Card from "./component/card.vue"
 	export default {
-		components: {
-			Card
-		},
 		data() {
 			return {
 				islogin: false,
