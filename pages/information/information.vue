@@ -32,8 +32,8 @@
 				</view>
 				<view class="release" v-if="admin" @click="goto('acc_manager')">账号管理</view>
 				<view class="release" v-if="admin" @click="goto('all_card')">查看所有名片</view>
-				<view class="accept" @click="goto('about')">
-					关于我们
+				<view class="accept" @click="goto('changepwd')">
+					修改密码
 				</view>
 				<view class="logout" @click="open">
 					退出登录

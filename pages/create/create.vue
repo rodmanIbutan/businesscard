@@ -5,12 +5,6 @@
 			<view class="title">创建名片</view>
 			<uni-forms ref="form" class="form" :model="FormData" :rules="rules" label-position="top"
 				validate-trigger="submit">
-				<uni-forms-item label="标题" name="title" :required="true">
-					<view class="easyInput">
-						<uni-easyinput confirmType='next' :clearable="true" class="easyInput" v-model="FormData.title"
-							type="easyInput" />
-					</view>
-				</uni-forms-item>
 				<uni-forms-item label="姓名" name="name" :required="true">
 					<view class="easyInput">
 						<uni-easyinput confirmType='next' :clearable="true" v-model="FormData.name" type="easyInput" />
@@ -35,7 +29,13 @@
 						<uni-easyinput confirmType='next' :clearable="true" v-model="FormData.email" type="easyInput" />
 					</view>
 				</uni-forms-item>
-				<uni-forms-item label="地址" name="address" :required="true">
+				<uni-forms-item label="地址" name="address1" :required="true" v-if="FormData.company==0">
+					<uni-data-select v-model="addrC" :localdata="wuzhouAddr"></uni-data-select>
+				</uni-forms-item>
+				<uni-forms-item label="地址" name="address2" :required="true" v-if="FormData.company==1">
+					<uni-data-select v-model="addrC" :localdata="qcAddr"></uni-data-select>
+				</uni-forms-item>
+				<uni-forms-item label="自定义" name="address3" :required="true" v-if="addrC==4">
 					<view class="easyInput">
 						<uni-easyinput confirmType='next' :clearable="true" v-model="FormData.address"
 							type="easyInput" />
@@ -87,23 +87,51 @@
 				},
 				range: [{
 						value: 0,
-						text: "五洲工程管理"
+						text: this.$company[0]
 					},
 					{
 						value: 1,
-						text: "千城"
+						text: this.$company[1]
 					}
 				],
+				wuzhouAddr: [{
+						value: 0,
+						text: this.$publicAddress.wuzhou[0]
+					},
+					{
+						value: 1,
+						text: this.$publicAddress.wuzhou[1]
+					},
+					{
+						value: 2,
+						text: this.$publicAddress.wuzhou[2]
+					},
+					{
+						value: 3,
+						text: this.$publicAddress.wuzhou[3]
+					},
+					{
+						value: 4,
+						text: "其他"
+					}
+				],
+				qcAddr: [{
+						value: 0,
+						text: this.$publicAddress.qiancheng[0]
+					},
+					{
+						value: 1,
+						text: this.$publicAddress.qiancheng[1]
+					},
+					{
+						value: 4,
+						text: "其他"
+					}
+				],
+				addrC: '',
 				type: '',
 				message: '',
 				rules: {
-					title: {
-						rules: [{
-							required: true,
-							errorMessage: "请输入标题"
-						}]
-
-					},
 					name: {
 						rules: [{
 							required: true,
@@ -139,7 +167,7 @@
 			}
 			this.count = 1
 			this.positionArry = []
-			this.locked=false
+			this.locked = false
 		},
 		methods: {
 			add() {
@@ -160,7 +188,20 @@
 								this.type = "error"
 								this.message = "请至少输入一个职位"
 								this.$refs.popup.open('top')
-							} else {
+								this.locked = false
+							}else if (this.addrC == 4 && this.FormData.address == ''||this.addrC=='') {
+								this.type = "error"
+								this.message = "请输入地址"
+								this.$refs.popup.open('top')
+								this.locked = false
+							}else {
+								if (this.addrC != 4) {
+									this.FormData.address = this.FormData.company == 0 ? this.$publicAddress
+										.wuzhou[this.addrC] : this.$publicAddress.qiancheng[this.addrC]
+								}
+								if(this.FormData.remarks===''){
+									this.FormData.remarks=this.$company[this.FormData.company]
+								}
 								this.loading = true
 								var arr = this.positionArry.filter(function(s) {
 									return s && s.trim()

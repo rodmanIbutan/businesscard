@@ -1,7 +1,7 @@
 <template>
 	<view class="app">
 		<view>
-			<view class="title">名片管理</view>
+			<view class="title">账号管理</view>
 			<view v-for="item in userList" :key="item.id">
 				<uni-card :title="item.username" :extra="item.phone">
 					<view slot="actions" class="card-actions">

@@ -105,7 +105,7 @@
 					lastName: this.business.name.slice(0, 1),
 					firstName: this.business.name.slice(1),
 					mobilePhoneNumber: this.business.phone,
-					organization: this.business.company == 0 ? "五洲工程" : "千城建筑",
+					organization: this.business.company == 0 ? this.$company[0] : this.$company[1],
 					title: this.business.position[0],
 					hostNumber: this.business.telephone,
 					email: this.business.email

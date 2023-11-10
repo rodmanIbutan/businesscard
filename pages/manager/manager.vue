@@ -3,7 +3,7 @@
 		<view>
 			<view class="title">名片管理</view>
 			<view v-for="item in cardList" :key="item.id">
-				<uni-card :title="item.title" :extra="item.company">
+				<uni-card :title="item.name+'的名片'" :extra="company[item.company]">
 					<text class="uni-body">{{ item.remarks }}</text>
 					<view slot="actions" class="card-actions">
 						<view class="card-actions-item" @click="update(item.id)">
@@ -39,7 +39,8 @@
 				message: "",
 				loading: false,
 				checkid: 0,
-				type: "success"
+				type: "success",
+				company: ["五洲", "千城"]
 			}
 		},
 		onReady() {
@@ -114,9 +115,9 @@
 					}
 				})
 			},
-			update(id){
+			update(id) {
 				uni.navigateTo({
-					url:"/pages/updatebusi/updatebusi?id="+id
+					url: "/pages/updatebusi/updatebusi?id=" + id
 				})
 			}
 		}

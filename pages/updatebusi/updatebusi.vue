@@ -2,12 +2,13 @@
 	<view class="create">
 		<zero-loading v-if="loading"></zero-loading>
 		<view class="app">
+			<view class="title">创建名片</view>
 			<uni-forms ref="form" class="form" :model="FormData" :rules="rules" label-position="top"
 				validate-trigger="submit">
 				<uni-forms-item label="标题" name="title" :required="true">
 					<view class="easyInput">
 						<uni-easyinput confirmType='next' :clearable="true" class="easyInput" v-model="FormData.title"
-							type="number" />
+							type="easyInput" />
 					</view>
 				</uni-forms-item>
 				<uni-forms-item label="姓名" name="name" :required="true">
@@ -15,12 +16,15 @@
 						<uni-easyinput confirmType='next' :clearable="true" v-model="FormData.name" type="easyInput" />
 					</view>
 				</uni-forms-item>
+				<uni-forms-item label="公司" name="company" :required="true">
+					<uni-data-select v-model="FormData.company" :localdata="range"></uni-data-select>
+				</uni-forms-item>
 				<uni-forms-item label="手机号码" name="phone" :required="true">
 					<view class="easyInput">
 						<uni-easyinput confirmType='next' :clearable="true" v-model="FormData.phone" type="easyInput" />
 					</view>
 				</uni-forms-item>
-				<uni-forms-item label="座机号码" name="telephone">
+				<uni-forms-item label="公司电话" name="telephone">
 					<view class="easyInput">
 						<uni-easyinput confirmType='next' :clearable="true" v-model="FormData.telephone"
 							type="easyInput" />
@@ -31,7 +35,13 @@
 						<uni-easyinput confirmType='next' :clearable="true" v-model="FormData.email" type="easyInput" />
 					</view>
 				</uni-forms-item>
-				<uni-forms-item label="地址" name="address" :required="true">
+				<uni-forms-item label="地址" name="address1" :required="true" v-if="FormData.company==0">
+					<uni-data-select v-model="addrC" :localdata="wuzhouAddr"></uni-data-select>
+				</uni-forms-item>
+				<uni-forms-item label="地址" name="address2" :required="true" v-if="FormData.company==1">
+					<uni-data-select v-model="addrC" :localdata="qcAddr"></uni-data-select>
+				</uni-forms-item>
+				<uni-forms-item label="自定义" name="address3" :required="true" v-if="addrC==4">
 					<view class="easyInput">
 						<uni-easyinput confirmType='next' :clearable="true" v-model="FormData.address"
 							type="easyInput" />
@@ -53,7 +63,7 @@
 						<uni-easyinput confirmType='go' :clearable="true" v-model="FormData.remarks" type="easyInput" />
 					</view>
 				</uni-forms-item>
-				<button @click="submit()">保存</button>
+				<button @click="submit()">提交</button>
 			</uni-forms>
 			<uni-popup ref="popup" type="message">
 				<uni-popup-message :type="type" :message="message" :duration="2000"></uni-popup-message>
@@ -80,6 +90,50 @@
 					position: '',
 					company: '泛微'
 				},
+				range: [{
+						value: 0,
+						text: this.$company[0]
+					},
+					{
+						value: 1,
+						text: this.$company[1]
+					}
+				],
+				wuzhouAddr: [{
+						value: 0,
+						text: this.$publicAddress.wuzhou[0]
+					},
+					{
+						value: 1,
+						text: this.$publicAddress.wuzhou[1]
+					},
+					{
+						value: 2,
+						text: this.$publicAddress.wuzhou[2]
+					},
+					{
+						value: 3,
+						text: this.$publicAddress.wuzhou[3]
+					},
+					{
+						value: 4,
+						text: "其他"
+					}
+				],
+				qcAddr: [{
+						value: 0,
+						text: this.$publicAddress.qiancheng[0]
+					},
+					{
+						value: 1,
+						text: this.$publicAddress.qiancheng[1]
+					},
+					{
+						value: 4,
+						text: "其他"
+					}
+				],
+				addrC: '',
 				type: '',
 				message: '',
 				rules: {
@@ -138,7 +192,8 @@
 						var bus = res.data.data
 						var arr = bus.position.split(",")
 						this.FormData = bus
-						this.count=arr.length
+						this.FormData.address = ''
+						this.count = arr.length
 						this.positionArry = arr
 					}
 				})
@@ -163,7 +218,21 @@
 								this.type = "error"
 								this.message = "请至少输入一个职位"
 								this.$refs.popup.open('top')
+								this.locked = false
+							}  else if (this.addrC == 4 && this.FormData.address == ''||this.addrC === '') {
+								console.log(this.addrC,2)
+								this.type = "error"
+								this.message = "请输入地址"
+								this.$refs.popup.open('top')
+								this.locked = false
 							} else {
+								if (this.addrC != 4) {
+									this.FormData.address = this.FormData.company == 0 ? this.$publicAddress
+										.wuzhou[this.addrC] : this.$publicAddress.qiancheng[this.addrC]
+								}
+								if(this.FormData.remarks===''){
+									this.FormData.remarks=this.$company[this.FormData.company]
+								}
 								this.loading = true
 								var arr = this.positionArry.filter(function(s) {
 									return s && s.trim()

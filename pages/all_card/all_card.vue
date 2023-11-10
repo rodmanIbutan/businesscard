@@ -3,7 +3,7 @@
 		<view>
 			<view class="title">名片管理</view>
 			<view v-for="item in cardList" :key="item.id">
-				<uni-card :title="item.title" :extra="company[item.company]" @click="goto(item.id)">
+				<uni-card :title="item.name+'的名片'" :extra="company[item.company]" @click="goto(item.id)">
 					<text class="uni-body">{{ item.remarks }}</text>
 				</uni-card>
 			</view>
