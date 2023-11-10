@@ -4,4 +4,10 @@
     <select id="getUserByPhone" resultType="com.wuzhou.businesscard.entity.User">
         select * from user where phone=#{phone} and isdeleted=0
     </select>
+    <update id="updatePassword" parameterType="String">
+        update user set password=#{password} where id=#{id} and isdeleted=0
+    </update>
+    <select id="getUserById" resultType="com.wuzhou.businesscard.entity.User">
+        select * from user where id=#{id} and isdeleted=0
+    </select>
 </mapper>
